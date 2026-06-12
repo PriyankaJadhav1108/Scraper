@@ -1,0 +1,132 @@
+[
+  {
+    "fiscal_year": 2025,
+    "quarter": 1,
+    "label": "FY2025 Q1",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2025-q1/FY25_Q1_Consolidated_Financial_Statements.pdf",
+        "filename": "FY25_Q1_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [],
+    "other": []
+  },
+  {
+    "fiscal_year": 2025,
+    "quarter": 2,
+    "label": "FY2025 Q2",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2025-q2/FY25_Q2_Consolidated_Financial_Statements.pdf",
+        "filename": "FY25_Q2_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [
+      {
+        "text": "Conference call webcast",
+        "url": "https://www.apple.com/investor/earnings-call",
+        "filename": "earnings-call-webcast",
+        "format": "webcast"
+      }
+    ],
+    "other": []
+  },
+  {
+    "fiscal_year": 2025,
+    "quarter": 3,
+    "label": "FY2025 Q3",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2025-q3/FY25_Q3_Consolidated_Financial_Statements.pdf",
+        "filename": "FY25_Q3_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [
+      {
+        "text": "Listen to the conference call webcast",
+        "url": "https://www.apple.com/investor/earnings-call/",
+        "filename": "earnings-call-webcast",
+        "format": "webcast"
+      }
+    ],
+    "other": []
+  },
+  {
+    "fiscal_year": 2025,
+    "quarter": 4,
+    "label": "FY2025 Q4",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf",
+        "filename": "FY25_Q4_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [],
+    "other": []
+  },
+  {
+    "fiscal_year": 2026,
+    "quarter": 1,
+    "label": "FY2026 Q1",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2026-q1/FY26_Q1_Consolidated_Financial_Statements.pdf",
+        "filename": "FY26_Q1_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [
+      {
+        "text": "Conference call webcast",
+        "url": "https://www.apple.com/investor/earnings-call",
+        "filename": "earnings-call-webcast",
+        "format": "webcast"
+      }
+    ],
+    "other": []
+  },
+  {
+    "fiscal_year": 2026,
+    "quarter": 2,
+    "label": "FY2026 Q2",
+    "page_url": "https://investor.apple.com/investor-relations/default.aspx",
+    "press_release": [],
+    "presentation": [
+      {
+        "text": "Financial Statements",
+        "url": "https://www.apple.com/newsroom/pdfs/fy2026q2/FY26_Q2_Consolidated_Financial_Statements.pdf",
+        "filename": "FY26_Q2_Consolidated_Financial_Statements.pdf",
+        "format": "pdf"
+      }
+    ],
+    "transcript": [
+      {
+        "text": "Conference call webcast",
+        "url": "https://www.apple.com/investor/earnings-call",
+        "filename": "earnings-call-webcast",
+        "format": "webcast"
+      }
+    ],
+    "other": []
+  }
+]
