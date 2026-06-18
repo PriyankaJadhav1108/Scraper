@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from playwright.async_api import async_playwright, BrowserContext, Page
 
+from ir_output import finalize_company_output
+
 # ─────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────
@@ -116,7 +118,7 @@ def classify_financial_document(category: str, title: str, url: str) -> str | No
     if not is_pdf_url(url):
         return None
     if category == "statement" or "financial statement" in title_lower:
-        return "presentation"
+        return "press_release"
     if category in {"summary", "supplemental"}:
         return "presentation"
     if "press release" in title_lower or "earnings release" in title_lower:
@@ -293,11 +295,6 @@ async def scrape_apple_earnings(page: Page, target_years: list[int]) -> list[dic
         if key not in quarter_map:
             continue
 
-        for link in extract_webcast_links(event):
-            quarter_map[key]["transcript"].append(
-                make_doc_entry(link["text"], link["url"], "transcript")
-            )
-
         for attachment in event.get("Attachments", []):
             title = normalize_text(attachment.get("Title", ""))
             url = attachment.get("Url", "")
@@ -422,24 +419,17 @@ async def main(download_files: bool = False):
 
         await browser.close()
 
+    flat_output = finalize_company_output(output_data, "Apple")
     output_path = DOWNLOAD_DIR / "earnings_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        json.dump(flat_output, f, indent=2, ensure_ascii=False)
     print(f"\n  💾 Index saved → {output_path}")
 
     print(f"\n{'═'*55}")
-    print(f"  {'Quarter':<12} {'Press Rel':>10} {'Present':>10} {'Transcript':>12}")
-    print(f"  {'─'*46}")
-    for record in output_data:
-        print(
-            f"  {record['label']:<12}"
-            f" {len(record['press_release']):>10}"
-            f" {len(record['presentation']):>10}"
-            f" {len(record['transcript']):>12}"
-        )
+    print(f"  Total items: {len(flat_output)}")
     print(f"{'═'*55}\n")
 
-    return output_data
+    return flat_output
 
 
 if __name__ == "__main__":

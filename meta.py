@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from playwright.async_api import async_playwright, BrowserContext, Page
 
+from ir_output import finalize_company_output
+
 # ─────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────
@@ -295,28 +297,17 @@ async def main(download_files: bool = False):
 
         await browser.close()
 
+    flat_output = finalize_company_output(output_data, "Meta")
     output_path = DOWNLOAD_DIR / "earnings_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        json.dump(flat_output, f, indent=2, ensure_ascii=False)
     print(f"\n  💾 Index saved → {output_path}")
 
     print(f"\n{'═'*55}")
-    print(
-        f"  {'Quarter':<12} {'Press Rel':>10} {'Present':>10}"
-        f" {'Earnings':>10} {'Transcript':>12}"
-    )
-    print(f"  {'─'*56}")
-    for record in output_data:
-        print(
-            f"  {record['label']:<12}"
-            f" {len(record['press_release']):>10}"
-            f" {len(record['presentation']):>10}"
-            f" {len(record['earnings_call']):>10}"
-            f" {len(record['transcript']):>12}"
-        )
+    print(f"  Total items: {len(flat_output)}")
     print(f"{'═'*55}\n")
 
-    return output_data
+    return flat_output
 
 
 if __name__ == "__main__":

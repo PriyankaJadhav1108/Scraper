@@ -1,183 +1,92 @@
 [
   {
-    "calendar_year": 2025,
-    "quarter": 1,
-    "label": "2025 Q1",
-    "page_url": "https://abc.xyz/investor/Earnings/default.aspx",
-    "press_release": [
-      {
-        "text": "Earnings Release",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q1/2025q1-alphabet-earnings-release.pdf",
-        "filename": "2025q1-alphabet-earnings-release.pdf",
-        "format": "pdf"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Slides",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q1/2025q1-alphabet-earnings-slides.pdf",
-        "filename": "2025q1-alphabet-earnings-slides.pdf",
-        "format": "pdf"
-      }
-    ],
-    "earnings_call": [
-      {
-        "text": "Alphabet 2025 Q1 Earnings Call",
-        "url": "https://www.youtube.com/watch?v=SySgINoaI9A",
-        "filename": "earnings-call-webcast",
-        "format": "webcast"
-      }
-    ],
-    "transcript": [],
-    "other": []
+    "title": "Alphabet Q1 2025 Earnings Release",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q1/2025q1-alphabet-earnings-release.pdf",
+    "item_type": "press_release"
   },
   {
-    "calendar_year": 2025,
-    "quarter": 2,
-    "label": "2025 Q2",
-    "page_url": "https://abc.xyz/investor/Earnings/default.aspx",
-    "press_release": [
-      {
-        "text": "Earnings Release",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q2/2025q2-alphabet-earnings-release.pdf",
-        "filename": "2025q2-alphabet-earnings-release.pdf",
-        "format": "pdf"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Slides",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q2/2025q2-alphabet-earnings-slides.pdf",
-        "filename": "2025q2-alphabet-earnings-slides.pdf",
-        "format": "pdf"
-      }
-    ],
-    "earnings_call": [
-      {
-        "text": "Alphabet 2025 Q1 Earnings Call",
-        "url": "https://www.youtube.com/watch?v=BtXRNTgsgpU",
-        "filename": "earnings-call-webcast",
-        "format": "webcast"
-      }
-    ],
-    "transcript": [],
-    "other": []
+    "title": "Alphabet Q1 2025 Earnings Presentation",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q1/2025q1-alphabet-earnings-slides.pdf",
+    "item_type": "presentation"
   },
   {
-    "calendar_year": 2025,
-    "quarter": 3,
-    "label": "2025 Q3",
-    "page_url": "https://abc.xyz/investor/Earnings/default.aspx",
-    "press_release": [
-      {
-        "text": "Earnings Release",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-release.pdf",
-        "filename": "2025q3-alphabet-earnings-release.pdf",
-        "format": "pdf"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Slides",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-slides.pdf",
-        "filename": "2025q3-alphabet-earnings-slides.pdf",
-        "format": "pdf"
-      }
-    ],
-    "earnings_call": [
-      {
-        "text": "Q3 2025 Webcast Link",
-        "url": "https://www.youtube.com/watch?v=hA1OEi6TRYU",
-        "filename": "earnings-call-webcast",
-        "format": "webcast"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "For a PDF version of the transcript, please click here",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_events/2025/Oct/29/2025_Q3_Earnings_Transcript.pdf",
-        "filename": "2025_Q3_Earnings_Transcript.pdf",
-        "format": "pdf"
-      }
-    ],
-    "other": []
+    "title": "Alphabet Q1 2025 Earnings Call Webcast",
+    "link": "https://www.youtube.com/watch?v=SySgINoaI9A",
+    "item_type": "webcast"
   },
   {
-    "calendar_year": 2025,
-    "quarter": 4,
-    "label": "2025 Q4",
-    "page_url": "https://abc.xyz/investor/Earnings/default.aspx",
-    "press_release": [
-      {
-        "text": "Earnings Release",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q4/2025q4-alphabet-earnings-release.pdf",
-        "filename": "2025q4-alphabet-earnings-release.pdf",
-        "format": "pdf"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Slides",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q4/4/2025q4-alphabet-earnings-slides.pdf",
-        "filename": "2025q4-alphabet-earnings-slides.pdf",
-        "format": "pdf"
-      }
-    ],
-    "earnings_call": [
-      {
-        "text": "Q4 2025 Webcast Link",
-        "url": "https://www.youtube.com/watch?v=mIK5-yi7a-c",
-        "filename": "earnings-call-webcast",
-        "format": "webcast"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "For a PDF version of the transcript, please click here",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Feb/04/2025_Q4_Earnings_Transcript.pdf",
-        "filename": "2025_Q4_Earnings_Transcript.pdf",
-        "format": "pdf"
-      }
-    ],
-    "other": []
+    "title": "Alphabet Q2 2025 Earnings Release",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q2/2025q2-alphabet-earnings-release.pdf",
+    "item_type": "press_release"
   },
   {
-    "calendar_year": 2026,
-    "quarter": 1,
-    "label": "2026 Q1",
-    "page_url": "https://abc.xyz/investor/Earnings/default.aspx",
-    "press_release": [
-      {
-        "text": "Earnings Release",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q1/2026q1-alphabet-earnings-release.pdf",
-        "filename": "2026q1-alphabet-earnings-release.pdf",
-        "format": "pdf"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Slides",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q1/Alphabet-Q1-2026-Earnings-Slides.pdf",
-        "filename": "Alphabet-Q1-2026-Earnings-Slides.pdf",
-        "format": "pdf"
-      }
-    ],
-    "earnings_call": [
-      {
-        "text": "Q1 2026 Webcast Link",
-        "url": "https://www.youtube.com/watch?v=LPJoiDiVkTI",
-        "filename": "earnings-call-webcast",
-        "format": "webcast"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "For a PDF version of the transcript, please click here",
-        "url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Apr/29/Alphabet-2026_Q1_Earnings_Transcript.pdf",
-        "filename": "Alphabet-2026_Q1_Earnings_Transcript.pdf",
-        "format": "pdf"
-      }
-    ],
-    "other": []
+    "title": "Alphabet Q2 2025 Earnings Presentation",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q2/2025q2-alphabet-earnings-slides.pdf",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Alphabet Q2 2025 Earnings Call Webcast",
+    "link": "https://www.youtube.com/watch?v=BtXRNTgsgpU",
+    "item_type": "webcast"
+  },
+  {
+    "title": "Alphabet Q3 2025 Earnings Release",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-release.pdf",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Alphabet Q3 2025 Earnings Presentation",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-slides.pdf",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Alphabet Q3 2025 Earnings Call Webcast",
+    "link": "https://www.youtube.com/watch?v=hA1OEi6TRYU",
+    "item_type": "webcast"
+  },
+  {
+    "title": "Alphabet Q3 2025 Earnings Call Transcript",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_events/2025/Oct/29/2025_Q3_Earnings_Transcript.pdf",
+    "item_type": "transcript"
+  },
+  {
+    "title": "Alphabet Q4 2025 Earnings Release",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q4/2025q4-alphabet-earnings-release.pdf",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Alphabet Q4 2025 Earnings Presentation",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2025/q4/4/2025q4-alphabet-earnings-slides.pdf",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Alphabet Q4 2025 Earnings Call Webcast",
+    "link": "https://www.youtube.com/watch?v=mIK5-yi7a-c",
+    "item_type": "webcast"
+  },
+  {
+    "title": "Alphabet Q4 2025 Earnings Call Transcript",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Feb/04/2025_Q4_Earnings_Transcript.pdf",
+    "item_type": "transcript"
+  },
+  {
+    "title": "Alphabet Q1 2026 Earnings Release",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q1/2026q1-alphabet-earnings-release.pdf",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Alphabet Q1 2026 Earnings Presentation",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q1/Alphabet-Q1-2026-Earnings-Slides.pdf",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Alphabet Q1 2026 Earnings Call Webcast",
+    "link": "https://www.youtube.com/watch?v=LPJoiDiVkTI",
+    "item_type": "webcast"
+  },
+  {
+    "title": "Alphabet Q1 2026 Earnings Call Transcript",
+    "link": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Apr/29/Alphabet-2026_Q1_Earnings_Transcript.pdf",
+    "item_type": "transcript"
   }
 ]

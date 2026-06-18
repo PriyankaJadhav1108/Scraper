@@ -1,219 +1,72 @@
 [
   {
-    "fiscal_year": 2025,
-    "quarter": 1,
-    "label": "FY2025 Q1",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2025-q1/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q1",
-        "filename": "PressReleaseFY25Q1.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q1",
-        "filename": "SlidesFY25Q1.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptFY25Q1",
-        "filename": "TranscriptFY25Q1.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q1 2025 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q1",
+    "item_type": "press_release"
   },
   {
-    "fiscal_year": 2025,
-    "quarter": 2,
-    "label": "FY2025 Q2",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2025-q2/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q2",
-        "filename": "PressReleaseFY25Q2.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q2",
-        "filename": "SlidesFY25Q2.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptFY25Q2",
-        "filename": "TranscriptFY25Q2.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q1 2025 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q1",
+    "item_type": "presentation"
   },
   {
-    "fiscal_year": 2025,
-    "quarter": 3,
-    "label": "FY2025 Q3",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2025-q3/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q3",
-        "filename": "PressReleaseFY25Q3.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q3",
-        "filename": "SlidesFY25Q3.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptFY25Q3",
-        "filename": "TranscriptFY25Q3.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q2 2025 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q2",
+    "item_type": "press_release"
   },
   {
-    "fiscal_year": 2025,
-    "quarter": 4,
-    "label": "FY2025 Q4",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2025-q4/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25q4",
-        "filename": "PressReleaseFY25q4.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25q4",
-        "filename": "SlidesFY25q4.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptQandAFY25q4",
-        "filename": "TranscriptQandAFY25q4.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q2 2025 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q2",
+    "item_type": "presentation"
   },
   {
-    "fiscal_year": 2026,
-    "quarter": 1,
-    "label": "FY2026 Q1",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q1/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26Q1",
-        "filename": "PressReleaseFY26Q1.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26Q1",
-        "filename": "SlidesFY26Q1.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptFY26Q1",
-        "filename": "TranscriptFY26Q1.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q3 2025 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25Q3",
+    "item_type": "press_release"
   },
   {
-    "fiscal_year": 2026,
-    "quarter": 2,
-    "label": "FY2026 Q2",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26q2",
-        "filename": "PressReleaseFY26q2.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26q2",
-        "filename": "SlidesFY26q2.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptQandAFY26q2",
-        "filename": "TranscriptQandAFY26q2.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q3 2025 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25Q3",
+    "item_type": "presentation"
   },
   {
-    "fiscal_year": 2026,
-    "quarter": 3,
-    "label": "FY2026 Q3",
-    "page_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q3/press-release-webcast",
-    "press_release": [
-      {
-        "text": "Press Release",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26q3",
-        "filename": "PressReleaseFY26q3.docx",
-        "format": "docx"
-      }
-    ],
-    "presentation": [
-      {
-        "text": "Earnings Call Slides",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26q3",
-        "filename": "SlidesFY26q3.pptx",
-        "format": "pptx"
-      }
-    ],
-    "transcript": [
-      {
-        "text": "Earnings Call Transcript",
-        "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/TranscriptQandAFY26Q3",
-        "filename": "TranscriptQandAFY26Q3.docx",
-        "format": "docx"
-      }
-    ],
-    "other": []
+    "title": "Microsoft Q4 2025 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY25q4",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Microsoft Q4 2025 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY25q4",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Microsoft Q1 2026 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26Q1",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Microsoft Q1 2026 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26Q1",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Microsoft Q2 2026 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26q2",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Microsoft Q2 2026 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26q2",
+    "item_type": "presentation"
+  },
+  {
+    "title": "Microsoft Q3 2026 Earnings Release",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/PressReleaseFY26q3",
+    "item_type": "press_release"
+  },
+  {
+    "title": "Microsoft Q3 2026 Earnings Presentation",
+    "link": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/SlidesFY26q3",
+    "item_type": "presentation"
   }
 ]

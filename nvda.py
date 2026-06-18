@@ -1,9 +1,9 @@
 """
-Alphabet (GOOG) IR Quarterly Earnings Document Scraper
-Extracts Press Releases, Presentations, Earnings Calls, and Transcripts
-for the latest 2 calendar years via abc.xyz public IR feed APIs.
+NVIDIA (NVDA) IR Quarterly Earnings Document Scraper
+Extracts Press Releases (PDF), Presentations, Earnings Calls, and Transcripts
+for the latest 2 fiscal years via NVIDIA's public IR feed API.
 
-Output: goog_ir_docs/earnings_index.json
+Output: nvda_ir_docs/earnings_index.json
 """
 
 import asyncio
@@ -20,14 +20,12 @@ from ir_output import finalize_company_output
 # CONFIG
 # ─────────────────────────────────────────────
 
-BASE_URL = "https://abc.xyz/investor/"
-EARNINGS_URL = "https://abc.xyz/investor/Earnings/default.aspx"
+BASE_URL = "https://investor.nvidia.com/home/default.aspx"
+QUARTERLY_URL = "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx"
 FINANCIAL_REPORT_API = (
-    "https://abc.xyz/feed/FinancialReport.svc/GetFinancialReportList?LanguageId=1"
+    "https://investor.nvidia.com/feed/FinancialReport.svc/GetFinancialReportList?LanguageId=1"
 )
-EVENT_API = "https://abc.xyz/feed/Event.svc/GetEventList?LanguageId=1"
-SITE_ORIGIN = "https://abc.xyz"
-DOWNLOAD_DIR = Path("goog_ir_docs")
+DOWNLOAD_DIR = Path("nvda_ir_docs")
 
 QUARTER_MAP = {
     "first quarter": 1,
@@ -36,16 +34,18 @@ QUARTER_MAP = {
     "fourth quarter": 4,
 }
 
-EARNINGS_EVENT_RE = re.compile(r"(\d{4})\s+Q([1-4])\s+Earnings", re.I)
-
 # ─────────────────────────────────────────────
 # HELPERS
 # ─────────────────────────────────────────────
 
-def get_target_years() -> list[int]:
-    """Return the current calendar year and the previous year."""
-    year = datetime.now(timezone.utc).year
-    return [year - 1, year]
+def get_target_fiscal_years() -> list[int]:
+    """
+    NVIDIA fiscal years end in late January.
+    FY2027 = Feb 2026 – Jan 2027.
+    """
+    today = datetime.now(timezone.utc)
+    current_fy = today.year if today.month == 1 else today.year + 1
+    return [current_fy - 1, current_fy]
 
 
 def normalize_text(text: str) -> str:
@@ -56,47 +56,17 @@ def is_pdf_url(href: str) -> bool:
     return href.lower().split("?", 1)[0].endswith(".pdf")
 
 
-def is_youtube_url(href: str) -> bool:
-    lowered = href.lower()
-    return "youtube.com" in lowered or "youtu.be" in lowered
+def filename_from_url(url: str, fallback: str = "document.pdf") -> str:
+    basename = urlparse(url).path.rsplit("/", 1)[-1]
+    if basename and is_pdf_url(basename):
+        return basename
+    if basename:
+        return f"{basename}.pdf"
+    return fallback
 
 
-def normalize_url(url: str) -> str:
-    if url.startswith("/"):
-        return f"{SITE_ORIGIN}{url}"
-    return url.replace("http://", "https://")
-
-
-def normalize_pdf_url(url: str) -> str:
-    normalized = normalize_url(url)
-    if is_pdf_url(normalized):
-        return normalized
-    if "transcript" in normalized.lower() or "earnings-release" in normalized.lower():
-        return f"{normalized.rstrip('/')}.pdf"
-    return normalized
-
-
-def filename_from_url(url: str) -> str:
-    return urlparse(url).path.rsplit("/", 1)[-1]
-
-
-def classify_financial_document(title: str, url: str, category: str) -> str | None:
-    label = normalize_text(title).lower()
-    href = url.lower()
-    cat = category.lower()
-
-    if cat == "news" or "earnings release" in label:
-        return "press_release"
-    if cat == "presentation" or "earnings slides" in label:
-        return "presentation"
-    # webcast entries point to event pages; Event API supplies direct links
-    if cat == "webcast":
-        return None
-    return None
-
-
-def quarter_key(year: int, quarter: int) -> str:
-    return f"{year} Q{quarter}"
+def quarter_key(fiscal_year: int, quarter: int) -> str:
+    return f"FY{fiscal_year} Q{quarter}"
 
 
 def parse_report_quarter(report: dict) -> tuple[int, int] | None:
@@ -107,32 +77,43 @@ def parse_report_quarter(report: dict) -> tuple[int, int] | None:
     return int(fiscal_year), QUARTER_MAP[subtype]
 
 
-def parse_event_quarter(title: str) -> tuple[int, int] | None:
-    match = EARNINGS_EVENT_RE.search(title)
-    if not match:
-        return None
-    return int(match.group(1)), int(match.group(2))
+def classify_document(title: str, url: str, category: str) -> str | None:
+    label = normalize_text(title).lower()
+    href = url.lower()
+    cat = category.lower()
+
+    if cat == "webcast" or label == "webcast" or "events.q4inc.com" in href:
+        return "earnings_call"
+    if cat == "transcript" or "transcript" in label:
+        return "transcript"
+    if cat == "presentation" or "presentation" in label or "quarterly-presentation" in href:
+        return "presentation"
+    if cat == "news" or "press release" in label:
+        return "press_release"
+    return None
 
 
-def make_doc_entry(text: str, url: str, doc_type: str) -> dict:
-    normalized_url = normalize_url(url)
+def make_doc_entry(text: str, url: str, doc_type: str, filename: str | None = None) -> dict:
+    normalized_url = url.replace("http://", "https://")
 
     if doc_type in {"press_release", "presentation", "transcript"}:
-        normalized_url = normalize_pdf_url(normalized_url)
-        if not is_pdf_url(normalized_url):
-            return {}
         file_format = "pdf"
     elif doc_type == "earnings_call":
-        if not is_youtube_url(normalized_url):
-            return {}
         file_format = "webcast"
     else:
         file_format = "other"
 
+    resolved_filename = filename
+    if not resolved_filename:
+        if file_format == "pdf":
+            resolved_filename = filename_from_url(normalized_url)
+        else:
+            resolved_filename = "earnings-call-webcast"
+
     return {
         "text": normalize_text(text) or doc_type,
         "url": normalized_url,
-        "filename": filename_from_url(normalized_url) if file_format == "pdf" else "earnings-call-webcast",
+        "filename": resolved_filename,
         "format": file_format,
     }
 
@@ -148,20 +129,6 @@ def dedupe_docs(docs: list[dict]) -> list[dict]:
     return unique
 
 
-def empty_quarter_record(year: int, quarter: int) -> dict:
-    return {
-        "calendar_year": year,
-        "quarter": quarter,
-        "label": quarter_key(year, quarter),
-        "page_url": EARNINGS_URL,
-        "press_release": [],
-        "presentation": [],
-        "earnings_call": [],
-        "transcript": [],
-        "other": [],
-    }
-
-
 async def fetch_json(page: Page, url: str) -> dict:
     response = await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
     if response and response.status >= 400:
@@ -175,30 +142,75 @@ async def fetch_json(page: Page, url: str) -> dict:
     return json.loads(body_text)
 
 
+async def resolve_pdf_filename(page: Page, url: str) -> str:
+    try:
+        response = await page.request.head(url, timeout=20_000)
+        if response.ok:
+            disposition = response.headers.get("content-disposition", "")
+            match = re.search(r'filename="?([^";]+)"?', disposition, re.I)
+            if match:
+                return match.group(1)
+    except Exception:
+        pass
+    return filename_from_url(url)
+
+
+async def fetch_press_release_pdf(page: Page, newsroom_url: str) -> dict | None:
+    """Collect the earnings press release PDF linked from nvidianews.nvidia.com."""
+    try:
+        await page.goto(newsroom_url, wait_until="domcontentloaded", timeout=30_000)
+        await page.wait_for_timeout(1500)
+        href = await page.eval_on_selector(
+            'a[href*="/_gallery/download_pdf/"]',
+            "el => el.href",
+        )
+    except Exception:
+        return None
+
+    if not href:
+        return None
+
+    pdf_url = href.replace("http://", "https://")
+    filename = await resolve_pdf_filename(page, pdf_url)
+    return make_doc_entry("Press Release", pdf_url, "press_release", filename=filename)
+
+
 # ─────────────────────────────────────────────
 # SCRAPER
 # ─────────────────────────────────────────────
 
-async def scrape_financial_reports(page: Page, target_years: list[int], quarter_map: dict) -> None:
+async def scrape_nvda_earnings(page: Page, target_years: list[int]) -> list[dict]:
     print(f"\n{'─'*55}")
-    print("  Fetching Alphabet financial report feed")
+    print("  Fetching NVIDIA financial report feed")
     print(f"  URL: {FINANCIAL_REPORT_API}")
     print(f"{'─'*55}")
 
     financial_data = await fetch_json(page, FINANCIAL_REPORT_API)
+    quarter_map: dict[str, dict] = {}
+    press_release_jobs: list[tuple[str, str]] = []
 
     for report in financial_data.get("GetFinancialReportListResult", []):
         parsed = parse_report_quarter(report)
         if not parsed:
             continue
 
-        year, quarter = parsed
-        if year not in target_years:
+        fiscal_year, quarter = parsed
+        if fiscal_year not in target_years:
             continue
 
-        key = quarter_key(year, quarter)
+        key = quarter_key(fiscal_year, quarter)
         if key not in quarter_map:
-            quarter_map[key] = empty_quarter_record(year, quarter)
+            quarter_map[key] = {
+                "fiscal_year": fiscal_year,
+                "quarter": quarter,
+                "label": key,
+                "page_url": QUARTERLY_URL,
+                "press_release": [],
+                "presentation": [],
+                "earnings_call": [],
+                "transcript": [],
+                "other": [],
+            }
 
         for doc in report.get("Documents", []):
             title = normalize_text(doc.get("DocumentTitle", ""))
@@ -206,68 +218,29 @@ async def scrape_financial_reports(page: Page, target_years: list[int], quarter_
             if not url:
                 continue
 
-            doc_type = classify_financial_document(
-                title, url, doc.get("DocumentCategory", "")
-            )
+            doc_type = classify_document(title, url, doc.get("DocumentCategory", ""))
             if not doc_type:
                 continue
 
-            entry = make_doc_entry(title, url, doc_type)
-            if entry:
-                quarter_map[key][doc_type].append(entry)
-
-
-async def scrape_event_feed(page: Page, target_years: list[int], quarter_map: dict) -> None:
-    print(f"\n{'─'*55}")
-    print("  Fetching Alphabet event feed")
-    print(f"  URL: {EVENT_API}")
-    print(f"{'─'*55}")
-
-    event_data = await fetch_json(page, EVENT_API)
-
-    for event in event_data.get("GetEventListResult", []):
-        title = normalize_text(event.get("Title", ""))
-        parsed = parse_event_quarter(title)
-        if not parsed:
-            continue
-
-        year, quarter = parsed
-        if year not in target_years:
-            continue
-
-        key = quarter_key(year, quarter)
-        if key not in quarter_map:
-            quarter_map[key] = empty_quarter_record(year, quarter)
-
-        for attachment in event.get("Attachments", []):
-            att_title = normalize_text(attachment.get("Title", ""))
-            att_url = attachment.get("Url", "")
-            if not att_url:
+            if doc_type == "press_release":
+                press_release_jobs.append((key, url))
                 continue
 
-            att_label = att_title.lower()
-            att_href = att_url.lower()
+            if doc_type in {"presentation", "transcript"} and not is_pdf_url(url):
+                continue
 
-            if is_youtube_url(att_url) or "webcast" in att_label:
-                entry = make_doc_entry(att_title, att_url, "earnings_call")
-                if entry:
-                    quarter_map[key]["earnings_call"].append(entry)
-            elif "transcript" in att_label or "transcript" in att_href:
-                entry = make_doc_entry(att_title, att_url, "transcript")
-                if entry:
-                    quarter_map[key]["transcript"].append(entry)
+            entry = make_doc_entry(title, url, doc_type)
+            quarter_map[key][doc_type].append(entry)
 
-
-async def scrape_goog_earnings(page: Page, target_years: list[int]) -> list[dict]:
-    quarter_map: dict[str, dict] = {}
-
-    await scrape_financial_reports(page, target_years, quarter_map)
-    await scrape_event_feed(page, target_years, quarter_map)
+    for key, newsroom_url in press_release_jobs:
+        pdf_doc = await fetch_press_release_pdf(page, newsroom_url)
+        if pdf_doc:
+            quarter_map[key]["press_release"].append(pdf_doc)
 
     output_data = []
-    for year in sorted(target_years):
+    for fiscal_year in sorted(target_years):
         for quarter in range(1, 5):
-            key = quarter_key(year, quarter)
+            key = quarter_key(fiscal_year, quarter)
             if key not in quarter_map:
                 continue
 
@@ -281,9 +254,16 @@ async def scrape_goog_earnings(page: Page, target_years: list[int]) -> list[dict
             print(f"     Earnings Calls : {len(record['earnings_call'])}")
             print(f"     Transcripts    : {len(record['transcript'])}")
 
+            tag_map = {
+                "press_release": "PRSS",
+                "presentation": "SLID",
+                "earnings_call": "CALL",
+                "transcript": "TRAN",
+            }
             for doc_type in ["press_release", "presentation", "earnings_call", "transcript"]:
                 for doc in record[doc_type]:
-                    print(f"     [{doc_type.upper()[:4]}] {doc['text'][:55]} → {doc['url'][:85]}")
+                    tag = tag_map[doc_type]
+                    print(f"     [{tag}] {doc['text'][:55]} → {doc['url'][:85]}")
 
             output_data.append(record)
 
@@ -308,7 +288,7 @@ async def download_document(
 
     try:
         page = await context.new_page()
-        if url.lower().endswith(".pdf"):
+        if url.lower().endswith(".pdf") or doc.get("format") == "pdf":
             async with context.expect_download() as dl_info:
                 await page.goto(url, timeout=30_000)
             download = await dl_info.value
@@ -324,10 +304,10 @@ async def download_document(
 
 
 async def main(download_files: bool = False):
-    target_years = get_target_years()
+    target_years = get_target_fiscal_years()
     print(f"\n{'═'*55}")
-    print("  ALPHABET (GOOG) IR Earnings Scraper")
-    print(f"  Target Years: {target_years}")
+    print("  NVDA IR Earnings Scraper")
+    print(f"  Target Fiscal Years: {target_years}")
     print(f"  Run Date: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}")
     print(f"{'═'*55}")
 
@@ -355,11 +335,11 @@ async def main(download_files: bool = False):
         )
         page = await context.new_page()
 
-        print("\n  🌐 Loading Alphabet IR landing page...")
+        print("\n  🌐 Loading NVIDIA IR landing page...")
         await page.goto(BASE_URL, wait_until="domcontentloaded", timeout=30_000)
         await page.wait_for_timeout(2000)
 
-        output_data = await scrape_goog_earnings(page, target_years)
+        output_data = await scrape_nvda_earnings(page, target_years)
 
         if download_files and output_data:
             print(f"\n{'═'*55}")
@@ -373,7 +353,7 @@ async def main(download_files: bool = False):
 
         await browser.close()
 
-    flat_output = finalize_company_output(output_data, "Alphabet")
+    flat_output = finalize_company_output(output_data, "NVIDIA")
     output_path = DOWNLOAD_DIR / "earnings_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(flat_output, f, indent=2, ensure_ascii=False)

@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 from playwright.async_api import async_playwright, Page, BrowserContext
 
+from ir_output import finalize_company_output
+
 # ─────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────
@@ -417,25 +419,17 @@ async def main(download_files: bool = False):
         await browser.close()
 
     # ── Save JSON index ──
+    flat_output = finalize_company_output(output_data, "Microsoft")
     output_path = DOWNLOAD_DIR / "earnings_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        json.dump(flat_output, f, indent=2, ensure_ascii=False)
     print(f"\n  💾 Index saved → {output_path}")
 
-    # ── Pretty summary table ──
     print(f"\n{'═'*55}")
-    print(f"  {'Quarter':<12} {'Press Rel':>10} {'Present':>10} {'Transcript':>12}")
-    print(f"  {'─'*46}")
-    for r in output_data:
-        print(
-            f"  {r['label']:<12}"
-            f" {len(r['press_release']):>10}"
-            f" {len(r['presentation']):>10}"
-            f" {len(r['transcript']):>12}"
-        )
+    print(f"  Total items: {len(flat_output)}")
     print(f"{'═'*55}\n")
 
-    return output_data
+    return flat_output
 
 
 # ─────────────────────────────────────────────

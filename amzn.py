@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from playwright.async_api import async_playwright, BrowserContext
 
+from ir_output import finalize_company_output
+
 # ─────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────
@@ -79,6 +81,8 @@ def classify_link(text: str, href: str) -> str | None:
         return "presentation"
 
     if label == "webcast" or "full-call" in href_lower or "earnings-report" in href_lower:
+        return "webcast"
+    if is_pdf_url(href) and "transcript" in label:
         return "transcript"
     return None
 
@@ -194,6 +198,7 @@ async def scrape_quarterly_results(page, target_years: list[int]) -> list[dict]:
                 "page_url": QUARTERLY_URL,
                 "press_release": [],
                 "presentation": [],
+                "webcast": [],
                 "transcript": [],
                 "other": [],
             }
@@ -208,15 +213,16 @@ async def scrape_quarterly_results(page, target_years: list[int]) -> list[dict]:
                 continue
 
             record = quarter_map[key]
-            for doc_type in ["press_release", "presentation", "transcript"]:
+            for doc_type in ["press_release", "presentation", "webcast", "transcript"]:
                 record[doc_type] = dedupe_docs(record[doc_type])
 
             print(f"\n  ✅ {record['label']}")
             print(f"     Press Releases : {len(record['press_release'])}")
             print(f"     Presentations  : {len(record['presentation'])}")
+            print(f"     Webcasts       : {len(record['webcast'])}")
             print(f"     Transcripts    : {len(record['transcript'])}")
 
-            for doc_type in ["press_release", "presentation", "transcript"]:
+            for doc_type in ["press_release", "presentation", "webcast", "transcript"]:
                 for doc in record[doc_type]:
                     print(f"     [{doc_type.upper()[:4]}] {doc['text'][:55]} → {doc['url'][:85]}")
 
@@ -305,30 +311,23 @@ async def main(download_files: bool = False):
             for record in output_data:
                 folder = DOWNLOAD_DIR / record["label"].replace(" ", "_")
                 folder.mkdir(parents=True, exist_ok=True)
-                for doc_type in ["press_release", "presentation", "transcript"]:
+                for doc_type in ["press_release", "presentation", "webcast", "transcript"]:
                     for doc in record.get(doc_type, []):
                         await download_document(context, doc, folder, doc_type)
 
         await browser.close()
 
+    flat_output = finalize_company_output(output_data, "Amazon")
     output_path = DOWNLOAD_DIR / "earnings_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        json.dump(flat_output, f, indent=2, ensure_ascii=False)
     print(f"\n  💾 Index saved → {output_path}")
 
     print(f"\n{'═'*55}")
-    print(f"  {'Quarter':<12} {'Press Rel':>10} {'Present':>10} {'Transcript':>12}")
-    print(f"  {'─'*46}")
-    for record in output_data:
-        print(
-            f"  {record['label']:<12}"
-            f" {len(record['press_release']):>10}"
-            f" {len(record['presentation']):>10}"
-            f" {len(record['transcript']):>12}"
-        )
+    print(f"  Total items: {len(flat_output)}")
     print(f"{'═'*55}\n")
 
-    return output_data
+    return flat_output
 
 
 if __name__ == "__main__":
