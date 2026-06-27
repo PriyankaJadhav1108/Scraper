@@ -15,6 +15,10 @@ SCRAPERS = [
     ("msft", "Microsoft"),
     ("aapl", "Apple"),
     ("nvda", "NVIDIA"),
+    ("tsla", "Tesla"),
+    ("avgo", "Broadcom"),
+    ("orcl", "Oracle"),
+    ("crm", "Salesforce"),
 ]
 
 
@@ -23,7 +27,10 @@ async def run_all(download_files: bool = False) -> dict[str, list[dict]]:
     for module_name, company in SCRAPERS:
         print(f"\n{'#' * 60}\n  Running {company} ({module_name}.py)\n{'#' * 60}")
         module = importlib.import_module(module_name)
-        results[company] = await module.main(download_files=download_files)
+        if hasattr(module, "run") and not asyncio.iscoroutinefunction(getattr(module, "run", None)):
+            results[company] = module.run()
+        else:
+            results[company] = await module.main(download_files=download_files)
     return results
 
 

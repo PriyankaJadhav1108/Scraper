@@ -32,6 +32,9 @@ def ticker_slug(company: str) -> str:
         "Microsoft": "msft",
         "Apple": "aapl",
         "NVIDIA": "nvda",
+        "Broadcom": "avgo",
+        "Oracle": "orcl",
+        "Salesforce": "crm",
     }.get(company, company.lower())
 
 
@@ -46,11 +49,18 @@ def asset_relative_path(company: str, year: int, quarter: int, item_type: str, e
 def public_url(relative_path: str) -> str:
     if IR_PUBLIC_BASE_URL:
         return f"{IR_PUBLIC_BASE_URL}/{relative_path}"
-    return f"/hosted/{relative_path}"
+    local_path = hosted_root_from_relative(relative_path).resolve()
+    return local_path.as_uri()
+
+
+DEFAULT_USER_AGENT = "Internship Research rahul@example.com"
 
 
 def _request(url: str, method: str = "GET", data: bytes | None = None, headers: dict | None = None) -> bytes:
-    req = urllib.request.Request(url, data=data, method=method, headers=headers or {})
+    merged_headers = {"User-Agent": DEFAULT_USER_AGENT}
+    if headers:
+        merged_headers.update(headers)
+    req = urllib.request.Request(url, data=data, method=method, headers=merged_headers)
     with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=120) as response:
         return response.read()
 

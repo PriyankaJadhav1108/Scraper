@@ -37,6 +37,8 @@ def period_parts(record: dict, company: str) -> tuple[int, int]:
 
 
 def resolve_item_type(bucket: str, doc: dict) -> str:
+    if bucket == "transcript":
+        return "transcript"
     if bucket in {"earnings_call", "webcast"}:
         return "webcast"
     if doc.get("format") in {"webcast", "audio"}:
